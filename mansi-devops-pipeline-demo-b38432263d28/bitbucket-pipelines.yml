@@ -1,0 +1,15 @@
+image: node:16
+
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Deploy to EC2
+          script:
+            - echo "Deploying to EC2..."
+            - ssh -o StrictHostKeyChecking=no ubuntu@54.89.49.46 "
+                cd /home/ubuntu/pipeline-demo &&
+                git pull origin develop &&
+                npm install &&
+                pm2 restart my-node-app
+              "
